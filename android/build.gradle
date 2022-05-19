@@ -56,4 +56,5 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    compile 'com.txusballesteros:bubbles:1.2.1'
 }
