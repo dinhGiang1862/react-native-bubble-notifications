@@ -11,14 +11,15 @@ import {
 
 // import { multiply } from 'react-native-bubble-notifications';
 
-import {    initializeBubble,
+import {    
+  initializeBubble,
   requestBubblePermissions,
   checkBubblePermissions,
   hideBubble,
   showBubble,
-  reopenApp,} from '../NativeModules/index.js';
+  reopenApp, } from '../NativeModules/index.js';
 
-const showToast = text => ToastAndroid.show(text, 1000);
+const showToast = (text: string) => ToastAndroid.show(text, 1000);
 
 export default function App() {
   const onAdd = () =>
@@ -33,7 +34,7 @@ requestBubblePermissions()
     .catch(() => showToast('Failed to get permission'));
 const onCheckPermissoin = () =>
 checkBubblePermissions()
-    .then(value => showToast(`Permission: ${value ? 'Yes' : 'No'}`))
+    .then((value: boolean) => showToast(`Permission: ${value ? 'Yes' : 'No'}`))
     .catch(() => showToast('Failed to check'));
 const onInit = () =>
 initializeBubble()
@@ -44,14 +45,14 @@ initializeBubble()
 React.useEffect(() => {
   const subscriptionPress = DeviceEventEmitter.addListener(
     'floating-bubble-press',
-    (e) => {
+    () => {
       showToast('Press Bubble');
       reopenApp();
     },
   );
   const subscriptionRemove = DeviceEventEmitter.addListener(
     'floating-bubble-remove',
-    (e) => {
+    () => {
       showToast('Remove Bubble');
     },
   );
@@ -64,19 +65,15 @@ React.useEffect(() => {
   return (
     <View style={styles.container}>
        <Text>Check Permission</Text>
-      <Button style={styles.button} title="Check" onPress={onCheckPermissoin} />
-      <Text>Ger Permission</Text>
-      <Button
-        style={styles.button}
-        title="Get Permission"
-        onPress={onRequestPermission}
-      />
+      <Button title="Check" onPress={onCheckPermissoin} />
+      <Text>Get Permission</Text>
+      <Button title="Get Permission" onPress={onRequestPermission} />
       <Text>Initialize Bubble Manage</Text>
-      <Button style={styles.button} title="Initialize" onPress={onInit} />
+      <Button  title="Initialize" onPress={onInit} />
       <Text>Add the bubble</Text>
-      <Button style={styles.button} title="Add Bubble" onPress={onAdd} />
+      <Button title="Add Bubble" onPress={onAdd} />
       <Text>Remove the bubble</Text>
-      <Button style={styles.button} title="Hide Bubble" onPress={onHide} />
+      <Button title="Hide Bubble" onPress={onHide} />
     </View>
   );
 }
