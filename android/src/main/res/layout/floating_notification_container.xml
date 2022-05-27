@@ -19,7 +19,7 @@
     <ImageView
     android:id="@+id/imageView2"
     android:layout_width="200dp"
-    android:layout_height="108dp"
+    android:layout_height="75dp"
     android:layout_marginTop="8dp"
     android:layout_gravity="center"
     app:srcCompat="@drawable/bubble_icon" />
@@ -45,8 +45,8 @@
     android:text="$10.50"
     android:textColor="#f4f4f4"
     android:padding="5dp"
-    android:layout_marginVertical="10dp"
-    android:textSize="75dp"/>
+    android:layout_marginVertical="2dp"
+    android:textSize="50dp"/>
 
   <!-- Distance to/address -->
   <LinearLayout
@@ -65,7 +65,7 @@
       android:padding="10dp"
       android:text="15 Minutes 5 Miles Away "
       android:textColor="#f4f4f4"
-      android:textSize="30dp" />
+      android:textSize="26dp" />
 
     <TextView
       android:id="@+id/pickUpAddress"
@@ -78,18 +78,19 @@
       android:padding="10dp"
       android:text="1413 Colorado Bend Dr, Cedar Park "
       android:textColor="#f4f4f4"
-      android:textSize="27dp" />
+      android:textSize="22dp" />
   </LinearLayout>
 
   <!-- Path Icon -->
+
+  <!-- To Dest/address -->
   <ImageView
     android:id="@+id/imageView"
-    android:layout_width="200dp"
-    android:layout_height="180dp"
+    android:layout_width="127dp"
+    android:layout_height="133dp"
     android:layout_gravity="center"
     app:srcCompat="@drawable/path" />
 
-  <!-- To Dest/address -->
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -106,7 +107,7 @@
       android:fontFamily="sans-serif-medium"
       android:text="12 mins/ 4.8mi Trip"
       android:textColor="#f4f4f4"
-      android:textSize="30dp"/>
+      android:textSize="26dp"/>
 
     <TextView
       android:id="@+id/dropOffAddress"
@@ -119,13 +120,13 @@
       android:gravity="center"
       android:text="Mojo Coffee Ranch Road 620, Cedar Park"
       android:textColor="#f4f4f4"
-      android:textSize="27dp"/>
+      android:textSize="22dp"/>
 
   </LinearLayout>
 
   <!-- Lower Buttons -->
   <Button
-    android:id="@+id/button"
+    android:id="@+id/re_open_app"
     android:layout_marginVertical="15dp"
     android:layout_width="250dp"
     android:layout_gravity="center"
@@ -134,6 +135,7 @@
     android:text="Return to app"
     android:textColor="#f4f4f4"
     android:textFontWeight="700"
+    android:onClick="reopenApp"
     android:textSize="15dp" />
 
 </LinearLayout>

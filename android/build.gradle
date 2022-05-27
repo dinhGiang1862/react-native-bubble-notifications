@@ -32,6 +32,9 @@ android {
         release {
             minifyEnabled false
         }
+      customDebugType {
+        debuggable true
+      }
     }
     lintOptions {
         disable 'GradleCompatible'

@@ -47,7 +47,7 @@ React.useEffect(() => {
     'floating-bubble-press',
     () => {
       showToast('Press Bubble');
-      reopenApp();
+      // reopenApp();
     },
   );
   const subscriptionRemove = DeviceEventEmitter.addListener(

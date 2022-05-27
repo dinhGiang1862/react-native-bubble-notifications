@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.net.Uri;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
 
 
 import com.facebook.react.bridge.Promise;
@@ -33,6 +36,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private BubblesManager bubblesManager;
     private final ReactApplicationContext reactContext;
     private BubbleLayout bubbleView;
+    private LinearLayout notificationLayout;
+    private Button reEnter;
 
     public BubbleNotificationsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -75,6 +80,20 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           new BubbleLayout.OnBubbleClickListener() {
             @Override
             public void onBubbleClick(BubbleLayout bubble) {
+
+              LinearLayout notificationLayout = bubble.findViewById(R.id.notification_layout);
+
+              System.out.println(notificationLayout);
+
+              if (notificationLayout.getVisibility() == View.GONE) {
+
+                notificationLayout.setVisibility(View.VISIBLE);
+
+              } else {
+
+                notificationLayout.setVisibility(View.GONE);
+
+              }
               sendEvent("floating-bubble-press");
             }
           }
@@ -82,7 +101,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         bubbleView.setShouldStickToWall(true);
         bubblesManager.addBubble(bubbleView, x, y);
       }
-    
+
     private boolean hasPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
           return Settings.canDrawOverlays(reactContext);
@@ -135,8 +154,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           promise.reject("");
         }
     }
-    
-    
+
+
     private void removeBubble() {
         if (bubbleView != null) {
           try {
@@ -166,14 +185,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             bubblesManager =
               new BubblesManager.Builder(reactContext)
                 .setTrashLayout(R.layout.bubble_trash_layout)
-                .setInitializationCallback(
-                  new OnInitializedCallback() {
-                    @Override
-                    public void onInitialized() {
-                      // addNewBubble();
-                    }
-                  }
-                )
                 .build();
             bubblesManager.initialize();
         }catch(Exception e) {
