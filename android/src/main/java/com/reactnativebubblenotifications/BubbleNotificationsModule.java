@@ -1,7 +1,10 @@
 package com.reactnativebubblenotifications;
 
+import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
+
 import androidx.annotation.NonNull;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.provider.Settings;
 import android.os.Build;
@@ -10,8 +13,9 @@ import android.content.Intent;
 import android.view.View;
 import android.net.Uri;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.widget.TextView;
 
 
 import com.facebook.react.bridge.Promise;
@@ -36,8 +40,21 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private BubblesManager bubblesManager;
     private final ReactApplicationContext reactContext;
     private BubbleLayout bubbleView;
-    private LinearLayout notificationLayout;
+    //Layout and resources on view
     private Button reEnter;
+    private LinearLayout notificationView ;
+    private ImageView wridzIcon ;
+    private ImageView pathIcon;
+    private TextView pickUpLoc;
+    private TextView dropOffLoc;
+    private TextView pickUpAddr;
+    private TextView dropOffAddr;
+    private TextView farePrice;
+    private String pickUpLocReact;
+    private String pickUpAddrReact;
+    private String dropOffLocReact;
+    private String dropOffAddrReact;
+    private String fareReact;
 
     public BubbleNotificationsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -81,19 +98,14 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             @Override
             public void onBubbleClick(BubbleLayout bubble) {
 
-              LinearLayout notificationLayout = bubble.findViewById(R.id.notification_layout);
+              expandNotification(
+                dropOffLocReact,
+                dropOffAddrReact,
+                pickUpLocReact,
+                pickUpAddrReact,
+                fareReact
+                );
 
-              System.out.println(notificationLayout);
-
-              if (notificationLayout.getVisibility() == View.GONE) {
-
-                notificationLayout.setVisibility(View.VISIBLE);
-
-              } else {
-
-                notificationLayout.setVisibility(View.GONE);
-
-              }
               sendEvent("floating-bubble-press");
             }
           }
@@ -107,6 +119,69 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           return Settings.canDrawOverlays(reactContext);
         }
         return true;
+    }
+
+    public void expandNotification(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare) {
+      //Identify all resources
+      notificationView = bubbleView.findViewById(R.id.notification_layout);
+      wridzIcon = bubbleView.findViewById(R.id.imageView2);
+      pathIcon = bubbleView.findViewById(R.id.imageView);
+      pickUpLoc = bubbleView.findViewById(R.id.pickUpLocation);
+      dropOffLoc = bubbleView.findViewById(R.id.dropOffLocation);
+      pickUpAddr = bubbleView.findViewById(R.id.pickUpAddress);
+      dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
+      farePrice = bubbleView.findViewById(R.id.Fare);
+      reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
+
+      if (notificationView.getVisibility() == View.GONE)
+      {
+        //Set Resources according to what needs to be shown
+        notificationView.setVisibility(View.VISIBLE);
+        wridzIcon.setImageResource(R.drawable.bubble_icon);
+        pathIcon.setImageResource(R.drawable.path);
+        pickUpAddr.setText(pickUpAddress);
+        pickUpLoc.setText(pickUpLocation);
+        dropOffLoc.setText(dropOffLocation);
+        dropOffAddr.setText(dropOffAddress);
+        farePrice.setText(fare);
+
+        //Set bottom Button to reopen the app on click
+        reEnter.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            Intent launchIntent = reactContext.getPackageManager().getLaunchIntentForPackage(reactContext.getPackageName());
+            if (launchIntent != null) {
+              reactContext.startActivity(launchIntent);
+              notificationView.setVisibility(View.GONE);
+            }
+          }
+        });
+      }
+      else
+      {
+        //Hide notification and set text back to empty
+        pickUpAddr.setText("");
+        pickUpLoc.setText("");
+        dropOffLoc.setText("");
+        dropOffAddr.setText("");
+        notificationView.setVisibility(View.GONE);
+      }
+    }
+
+    @ReactMethod
+    public void loadData(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare) {
+      pickUpAddrReact = pickUpAddress;
+      pickUpLocReact = pickUpLocation;
+      dropOffAddrReact = dropOffAddress;
+      dropOffLocReact = dropOffLocation;
+      fareReact = fare;
+
+      runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          expandNotification(dropOffLocation, dropOffAddress, pickUpLocation, pickUpAddress, fare);
+        }
+      });
     }
 
     @ReactMethod

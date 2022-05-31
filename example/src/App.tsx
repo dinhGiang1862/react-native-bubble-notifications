@@ -17,7 +17,8 @@ import {
   checkBubblePermissions,
   hideBubble,
   showBubble,
-  reopenApp, } from '../NativeModules/index.js';
+  expandNotification,
+  loadData } from '../NativeModules/index.js';
 
 const showToast = (text: string) => ToastAndroid.show(text, 1000);
 
@@ -40,13 +41,16 @@ const onInit = () =>
 initializeBubble()
     .then(() => showToast('Init'))
     .catch(() => showToast('Failed init'));
+  const expandWithData = () => {
+    loadData('15 min / 5 Miles trip', 'Mojo Coffee, 620S, Cedar Park', "8 min / 3 miles away", "1413 Colorado Bend dr Cedar Park", '10.75');
+  }
+
 
 
 React.useEffect(() => {
   const subscriptionPress = DeviceEventEmitter.addListener(
     'floating-bubble-press',
     () => {
-      showToast('Press Bubble');
       // reopenApp();
     },
   );
@@ -72,6 +76,8 @@ React.useEffect(() => {
       <Button  title="Initialize" onPress={onInit} />
       <Text>Add the bubble</Text>
       <Button title="Add Bubble" onPress={onAdd} />
+      <Text>Expand Container</Text>
+      <Button title="load Data" onPress={expandWithData} />
       <Text>Remove the bubble</Text>
       <Button title="Hide Bubble" onPress={onHide} />
     </View>
