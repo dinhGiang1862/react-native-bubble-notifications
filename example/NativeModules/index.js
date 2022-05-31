@@ -32,21 +32,6 @@ export const loadData = (
     fare
   );
 
-export const expandNotification = (
-  dropOffLoc,
-  dropOffAddr,
-  pickUpLoc,
-  pickUpAddr,
-  fare
-) =>
-  BubbleNotifications.expandNotification(
-    dropOffLoc,
-    dropOffAddr,
-    pickUpLoc,
-    pickUpAddr,
-    fare
-  );
-
 export default {
   initializeBubble,
   requestBubblePermissions,
