@@ -11,11 +11,9 @@ npm install react-native-bubble-notifications
 ## Usage
 
 ```js
-import { multiply } from "react-native-bubble-notifications";
+import {showBubble, hideBubble, requestBubblePermissions, checkBubblePermissions, initializeBubble, loadData} from 'react-native-bubble-notifications';
 
 // ...
-
-const result = await multiply(3, 7);
 ```
 
 ## Contributing
