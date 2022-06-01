@@ -39,6 +39,5 @@ export default {
   hideBubble,
   showBubble,
   reopenApp,
-  expandNotification,
   loadData,
 };

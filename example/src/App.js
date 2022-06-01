@@ -40,11 +40,11 @@ export default function App() {
       .catch(() => showToast('Failed init'));
   const expandWithData = () => {
     loadData(
-      '15 min / 5 Miles trip',
+      '15 min / 5 Mile trip',
       'Mojo Coffee, 620S, Cedar Park',
       '8 min / 3 miles away',
       '1413 Colorado Bend dr Cedar Park',
-      '10.75'
+      '$10.75'
     );
   };
 
