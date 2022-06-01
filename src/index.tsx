@@ -17,6 +17,26 @@ const BubbleNotifications = NativeModules.BubbleNotifications
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return BubbleNotifications.multiply(a, b);
+export const showBubble = (x: number, y: number) => {
+  return BubbleNotifications.showFloatingBubble(x, y);
+}
+
+export const hideBubble = () => {
+  return BubbleNotifications.hideFloatingBubble();
+}
+
+export const checkBubblePermissions = () => {
+  return BubbleNotifications.checkPermission();
+}
+
+export const requestBubblePermissions = () => {
+  return BubbleNotifications.requestPermission();
+}
+
+export const initializeBubble = () => {
+  return BubbleNotifications.initialize();
+}
+
+export const loadData = (dropOffLoc: string, dropOffAddr: string, pickUpLoc: string, pickUpAddr: string, fare: string) => {
+  return BubbleNotifications.loadData(dropOffLoc, dropOffAddr, pickUpLoc, pickUpAddr, fare)
 }
