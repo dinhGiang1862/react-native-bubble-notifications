@@ -18,7 +18,7 @@ const BubbleNotifications = NativeModules.BubbleNotifications
     );
 
 export const showBubble = (x: number, y: number) => {
-  return BubbleNotifications.showFloatingBubble(x, y);
+  return BubbleNotifications.showFloatingBubble(50, 100);
 }
 
 export const hideBubble = () => {
