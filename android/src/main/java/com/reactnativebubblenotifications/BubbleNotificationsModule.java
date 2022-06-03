@@ -161,6 +161,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             Intent launchIntent = reactContext.getPackageManager().getLaunchIntentForPackage(reactContext.getPackageName());
             if (launchIntent != null) {
               reactContext.startActivity(launchIntent);
+              sendEvent("app-opened-from-notification");
               notificationView.setVisibility(View.GONE);
             }
           }
@@ -298,6 +299,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             System.out.println(e);
         }
     }
+
 
     private void sendEvent(String eventName) {
       if (eventName == "floating-bubble-remove") {
