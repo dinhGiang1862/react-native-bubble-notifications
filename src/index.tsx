@@ -40,3 +40,7 @@ export const initializeBubble = () => {
 export const loadData = (dropOffLoc: string, dropOffAddr: string, pickUpLoc: string, pickUpAddr: string, fare: string) => {
   return BubbleNotifications.loadData(dropOffLoc, dropOffAddr, pickUpLoc, pickUpAddr, fare)
 }
+
+export const getBubbleState = () => {
+  return BubbleNotifications.getState();
+}
