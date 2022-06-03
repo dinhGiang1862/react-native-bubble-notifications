@@ -207,7 +207,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     public void hideFloatingBubble(final Promise promise) {
         try {
           this.removeBubble();
-          bubbleStatus.put("showingBubble", new Boolean(false));
           promise.resolve("Bubble Hidden");
         } catch (Exception e) {
           promise.reject(e);
@@ -264,6 +263,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         if (bubbleView != null) {
           try {
             bubblesManager.removeBubble(bubbleView);
+            bubbleStatus.put("ShowingBubble", new Boolean(false));
           } catch (Exception e) {}
         }
     }
@@ -297,6 +297,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     }
 
     private void sendEvent(String eventName) {
+      if (eventName == "floating-bubble-remove") {
+        bubbleStatus.put("ShowingBubble", new Boolean(false));
+      }
+
         WritableMap params = Arguments.createMap();
         reactContext
           .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
