@@ -17,11 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
@@ -55,6 +58,11 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private String dropOffLocReact;
     private String dropOffAddrReact;
     private String fareReact;
+    private HashMap<String, Boolean> bubbleStatus = new HashMap<String, Boolean>();
+
+    public HashMap getBubbleStatus() {
+      return bubbleStatus;
+    }
 
     public BubbleNotificationsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -71,9 +79,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     public void showFloatingBubble(int x, int y, final Promise promise) {
         try {
             this.addNewBubble(x, y);
-            promise.resolve("");
+            bubbleStatus.put("ShowingBubble", new Boolean(true));
+            promise.resolve("bubbleShown");
         }catch(Exception e) {
-            promise.reject("");
+            promise.reject(e);
         }
     }
 
@@ -198,9 +207,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     public void hideFloatingBubble(final Promise promise) {
         try {
           this.removeBubble();
-          promise.resolve("");
+          bubbleStatus.put("showingBubble", new Boolean(false));
+          promise.resolve("Bubble Hidden");
         } catch (Exception e) {
-          promise.reject("");
+          promise.reject(e);
         }
     }
 
@@ -208,15 +218,18 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     public void requestPermission(final Promise promise) {
         try {
           this.requestPermissionAction(promise);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+          promise.reject(e);
+        }
     }
 
     @ReactMethod // Notates a method that should be exposed to React
     public void checkPermission(final Promise promise) {
         try {
+          bubbleStatus.put("hasPermission", hasPermission());
           promise.resolve(hasPermission());
         } catch (Exception e) {
-          promise.reject("");
+          promise.reject(e);
         }
     }
 
@@ -224,9 +237,25 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     public void initialize(final Promise promise) {
         try {
           this.initializeBubblesManager();
+          bubbleStatus.put("bubbleInitialized", new Boolean(true));
           promise.resolve("");
         } catch (Exception e) {
-          promise.reject("");
+          promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getState(final Promise promise) {
+        try {
+          WritableMap map = new WritableNativeMap();
+
+          for (Map.Entry<String, Boolean> entry : bubbleStatus.entrySet()) {
+            map.putBoolean(entry.getKey(), entry.getValue());
+          }
+
+          promise.resolve(map);
+        }catch(Exception e) {
+          promise.reject(e);
         }
     }
 

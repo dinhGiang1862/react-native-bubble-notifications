@@ -16,6 +16,7 @@ import {
   hideBubble,
   showBubble,
   loadData,
+  getBubbleState,
 } from '../NativeModules/index.js';
 
 const showToast = (text) => ToastAndroid.show(text, 1000);
@@ -47,7 +48,10 @@ export default function App() {
       '$10.75'
     );
   };
-
+  const state = async () => {
+    const bubbleState = await getBubbleState();
+    console.log(bubbleState);
+  };
   React.useEffect(() => {
     const subscriptionPress = DeviceEventEmitter.addListener(
       'floating-bubble-press',
@@ -81,6 +85,8 @@ export default function App() {
       <Button title="load Data" onPress={expandWithData} />
       <Text>Remove the bubble</Text>
       <Button title="Hide Bubble" onPress={onHide} />
+      <Text>bubble</Text>
+      <Button title="state" onPress={state} />
     </View>
   );
 }

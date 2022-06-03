@@ -32,6 +32,8 @@ export const loadData = (
     fare
   );
 
+export const getBubbleState = () => BubbleNotifications.getState();
+
 export default {
   initializeBubble,
   requestBubblePermissions,
@@ -40,4 +42,5 @@ export default {
   showBubble,
   reopenApp,
   loadData,
+  getBubbleState,
 };
