@@ -237,6 +237,9 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         try {
           this.initializeBubblesManager();
           bubbleStatus.put("bubbleInitialized", new Boolean(true));
+          if (!bubbleStatus.containsKey("ShowingBubble")) {
+            bubbleStatus.put("ShowingBubble", new Boolean(false));
+          }
           promise.resolve("");
         } catch (Exception e) {
           promise.reject(e);
