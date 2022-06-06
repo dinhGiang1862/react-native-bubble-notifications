@@ -44,3 +44,7 @@ export const loadData = (dropOffLoc: string, dropOffAddr: string, pickUpLoc: str
 export const getBubbleState = () => {
   return BubbleNotifications.getState();
 }
+
+export const resetBubbleData = () => {
+  return BubbleNotifications.resetBubbleDataReact();
+} 
