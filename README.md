@@ -10,12 +10,12 @@ npm install react-native-bubble-notifications
 
 ## Usage
 
+Note this package is a React native wrapper utilizing Bubbles-for-android, the primary usage is to have the draw over other apps bubble that can also expand into a bigger view for large notification outside the app much like facebook chatheads. changing bubble image can be done by changing the icon in your andriod -> src -> main -> drawable and the view that it expands can be altered under android -> src -> main -> layout -> bubble_layout.xml file
+
 ```js
-import { multiply } from "react-native-bubble-notifications";
+import {showBubble, hideBubble, requestBubblePermissions, checkBubblePermissions, initializeBubble, loadData} from 'react-native-bubble-notifications';
 
 // ...
-
-const result = await multiply(3, 7);
 ```
 
 ## Contributing
