@@ -33,6 +33,7 @@
       android:gravity="center|center_vertical|center_horizontal"
       android:visibility="gone"
       android:layout_marginLeft="10dp"
+      android:padding="10dp"
       android:orientation="vertical">
 
       <ImageView
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="$10.50"
+        android:text=""
         android:textColor="#f4f4f4"
         android:padding="5dp"
         android:layout_marginVertical="2dp"
@@ -83,7 +84,7 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:padding="5dp"
-            android:text="15 Minutes 5 Miles Away "
+            android:text=""
             android:textColor="#f4f4f4"
             android:textSize="20dp" />
 
@@ -96,7 +97,7 @@
             android:gravity="center"
             android:lines="2"
             android:padding="5dp"
-            android:text="1413 Colorado Bend Dr, Cedar Park "
+            android:text=""
             android:textColor="#f4f4f4"
             android:textSize="22dp" />
 
@@ -108,7 +109,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="sans-serif-medium"
-            android:text="12 mins/ 4.8mi Trip"
+            android:text=""
             android:textColor="#f4f4f4"
             android:textSize="20dp"/>
 
@@ -121,7 +122,7 @@
             android:lines="2"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Mojo Coffee Ranch Road 620, Cedar Park"
+            android:text=""
             android:textColor="#f4f4f4"
             android:textSize="22dp"/>
 

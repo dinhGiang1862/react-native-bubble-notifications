@@ -141,18 +141,13 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
       dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
       farePrice = bubbleView.findViewById(R.id.Fare);
       reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
-
+      
       if (notificationView.getVisibility() == View.GONE)
       {
         //Set Resources according to what needs to be shown
         notificationView.setVisibility(View.VISIBLE);
         wridzIcon.setImageResource(R.drawable.bubble_icon);
-        pathIcon.setImageResource(R.drawable.path);
-        pickUpAddr.setText(pickUpAddress);
-        pickUpLoc.setText(pickUpLocation);
-        dropOffLoc.setText(dropOffLocation);
-        dropOffAddr.setText(dropOffAddress);
-        farePrice.setText(fare);
+        farePrice.setText("No Trip Requests");
 
         //Set bottom Button to reopen the app on click
         reEnter.setOnClickListener(new View.OnClickListener() {
@@ -160,12 +155,23 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           public void onClick(View v) {
             Intent launchIntent = reactContext.getPackageManager().getLaunchIntentForPackage(reactContext.getPackageName());
             if (launchIntent != null) {
+              if (pickUpAddrReact!=  null && pickUpLocReact != null && dropOffLocReact != null && dropOffAddrReact != null && fareReact != null) {
+                sendEvent("app-opened-from-notification");
+              }
               reactContext.startActivity(launchIntent);
-              sendEvent("app-opened-from-notification");
               notificationView.setVisibility(View.GONE);
             }
           }
         });
+
+        if (pickUpAddress !=  null && pickUpLocation != null && dropOffLocation != null && dropOffAddress != null && fare != null) {
+          pathIcon.setImageResource(R.drawable.path);
+          pickUpAddr.setText(pickUpAddress);
+          pickUpLoc.setText(pickUpLocation);
+          dropOffLoc.setText(dropOffLocation);
+          dropOffAddr.setText(dropOffAddress);
+          farePrice.setText(fare);
+        }
       }
       else
       {
@@ -175,6 +181,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         dropOffLoc.setText("");
         dropOffAddr.setText("");
         notificationView.setVisibility(View.GONE);
+
       }
     }
 
@@ -202,6 +209,20 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         if (launchIntent != null) {
           reactContext.startActivity(launchIntent);
         }
+    }
+
+    @ReactMethod
+    public void resetBubbleDataFromReact(final Promise promise) {
+      try {
+        dropOffAddrReact = null;
+        dropOffLocReact = null;
+        pickUpLocReact = null;
+        pickUpAddrReact = null;
+        fareReact = null;
+        promise.resolve("Data Wiped");
+      }catch(Exception e) {
+        promise.reject(e);
+      }
     }
 
     @ReactMethod // Notates a method that should be exposed to React

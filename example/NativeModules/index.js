@@ -34,6 +34,9 @@ export const loadData = (
 
 export const getBubbleState = () => BubbleNotifications.getState();
 
+export const resetBubbleData = () =>
+  BubbleNotifications.resetBubbleDataFromReact();
+
 export default {
   initializeBubble,
   requestBubblePermissions,
@@ -43,4 +46,5 @@ export default {
   reopenApp,
   loadData,
   getBubbleState,
+  resetBubbleData,
 };

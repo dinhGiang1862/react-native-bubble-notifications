@@ -17,6 +17,7 @@ import {
   showBubble,
   loadData,
   getBubbleState,
+  resetBubbleData,
 } from '../NativeModules/index.js';
 
 const showToast = (text) => ToastAndroid.show(text, 1000);
@@ -48,6 +49,9 @@ export default function App() {
       '$10.75'
     );
   };
+
+  const resetBubble = () => resetBubbleData();
+
   const state = async () => {
     const bubbleState = await getBubbleState();
     console.log(bubbleState);
@@ -87,6 +91,8 @@ export default function App() {
       <Button title="Hide Bubble" onPress={onHide} />
       <Text>bubble</Text>
       <Button title="state" onPress={state} />
+      <Text>reset</Text>
+      <Button title="reset" onPress={resetBubble} />
     </View>
   );
 }
