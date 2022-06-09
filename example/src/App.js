@@ -30,8 +30,8 @@ export default function App() {
       .catch(() => showToast('Failed to remove'));
   const onRequestPermission = () =>
     requestBubblePermissions()
-      .then(() => showToast('Permission received'))
-      .catch(() => showToast('Failed to get permission'));
+      .then((status) => console.log(status))
+      .catch((e) => showToast('Failed to get permission', e));
   const onCheckPermissoin = () =>
     checkBubblePermissions()
       .then((value) => showToast(`Permission: ${value ? 'Yes' : 'No'}`))
@@ -42,9 +42,9 @@ export default function App() {
       .catch(() => showToast('Failed init'));
   const expandWithData = () => {
     loadData(
-      '15 min / 5 Mile trip',
+      '15 min / 5 Mile Trip',
       'Mojo Coffee, 620S, Cedar Park',
-      '8 min / 3 miles away',
+      '8 min / 3 mi Pickup',
       '1413 Colorado Bend dr Cedar Park',
       '$10.75'
     );
