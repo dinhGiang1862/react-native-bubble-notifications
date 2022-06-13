@@ -46,5 +46,5 @@ export const getBubbleState = () => {
 }
 
 export const resetBubbleData = () => {
-  return BubbleNotifications.resetBubbleDataReact();
+  return BubbleNotifications.resetBubbleDataFromReact();
 } 

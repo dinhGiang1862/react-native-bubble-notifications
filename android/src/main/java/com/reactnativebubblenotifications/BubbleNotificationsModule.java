@@ -262,7 +262,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           if (!bubbleStatus.containsKey("ShowingBubble")) {
             bubbleStatus.put("ShowingBubble", new Boolean(false));
           }
-          promise.resolve("");
+          promise.resolve("bubble Initialized");
         } catch (Exception e) {
           promise.reject(e);
         }
@@ -303,9 +303,9 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           reactContext.startActivityForResult(intent, 0, bundle);
         }
         if (hasPermission()) {
-          promise.resolve("");
+          promise.resolve(hasPermission());
         } else {
-          promise.reject("");
+          promise.reject("no Permission Granted");
         }
     }
 
