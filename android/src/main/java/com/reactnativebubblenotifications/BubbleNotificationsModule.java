@@ -31,6 +31,9 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import android.os.Bundle;
+import com.facebook.react.ReactActivity;
+
 
 import com.txusballesteros.bubbles.BubbleLayout;
 import com.txusballesteros.bubbles.BubblesManager;
@@ -154,6 +157,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           @Override
           public void onClick(View v) {
             Intent launchIntent = reactContext.getPackageManager().getLaunchIntentForPackage(reactContext.getPackageName());
+            launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (launchIntent != null) {
               if (pickUpAddrReact!=  null && pickUpLocReact != null && dropOffLocReact != null && dropOffAddrReact != null && fareReact != null) {
                 sendEvent("app-opened-from-notification");
